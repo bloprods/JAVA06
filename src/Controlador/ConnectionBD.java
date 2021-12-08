@@ -26,10 +26,11 @@ public class ConnectionBD {
             } catch (Exception e) {
                 System.out.println("JDBC driver falied to load.");
             }
-            this.con = DriverManager.getConnection("jdbc:derby://localhost:1527/empresa", "admin", "admin");
+            this.con = DriverManager.getConnection("jdbc:derby://localhost:1527/java06", "usuario", "usuario");
 
         } catch (SQLNonTransientConnectionException cred) {
-            JOptionPane.showMessageDialog(null, "Las credenciales introducidas son erróneas.", "Error", 0);
+//            JOptionPane.showMessageDialog(null, "Las credenciales introducidas son erróneas.", "Error", 0);
+        JOptionPane.showMessageDialog(null, "El usuario y la contraseña de la conexión son erróneos.", "Error", 0);
             this.con = null;
         } catch (SQLException ex) {
             ex.printStackTrace();

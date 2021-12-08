@@ -5,6 +5,9 @@
  */
 package Vista;
 
+import Controlador.ConnectionBD;
+
+
 /**
  *
  * @author BLR
@@ -90,6 +93,7 @@ public class GUI extends javax.swing.JFrame {
       pack();
     }
     
+    protected ConnectionBD con;
     protected Welcome Welcome = new Welcome();
     protected Login Login = new Login();
     // Variables declaration - do not modify//GEN-BEGIN:variables

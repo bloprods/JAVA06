@@ -6,6 +6,8 @@
 
 package Vista;
 
+import Controlador.ConnectionBD;
+
 /**
  *
  * @author BLR
@@ -106,7 +108,11 @@ public class Login extends javax.swing.JPanel {
     private void AccederButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AccederButtonActionPerformed
         // TODO add your handling code here:
 //        if(bd.getConnection(jTextFieldUsuario.getText(), jTextFieldContraseña.getText()))
-        GUI.cambiarContenedor(GUI.Welcome);
+        GUI.con = new ConnectionBD();
+        if(GUI.con.getConnection() != null){
+            GUI.cambiarContenedor(GUI.Welcome);
+        }
+        
 //        else
 //        JOptionPane.showMessageDialog(this, "Las credenciales introducidas son erróneas.", "Error" , 0);
 
