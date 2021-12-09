@@ -194,3 +194,9 @@ ERROR 08004: Se ha producido un fallo de autenticación de conexión. Motivo: Aute
 ============= end nested exception, level (1) ===========
 Cleanup action completed
 Wed Dec 08 20:05:39 CET 2021 Thread[DRDAConnThread_3,5,main] (DATABASE = java06), (DRDAID = {7}), Se ha producido un fallo de autenticación de conexión. Motivo: Autenticación no válida..
+----------------------------------------------------------------
+Wed Dec 08 23:29:12 CET 2021: cerrando motor de Derby
+----------------------------------------------------------------
+Wed Dec 08 23:29:12 CET 2021:
+Cerrando la instancia 6ede40af-017d-9b69-9585-0000390fc16b en el directorio de base de datos C:\Users\BLR\Documents\NetBeansProjects\JAVA06\bd\java06 con cargador de clases jdk.internal.loader.ClassLoaders$AppClassLoader@73d16e93
+----------------------------------------------------------------
