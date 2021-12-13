@@ -5,6 +5,8 @@
  */
 package Vista;
 
+import java.sql.SQLException;
+
 /**
  *
  * @author BLR
@@ -16,6 +18,7 @@ public class Welcome extends javax.swing.JPanel {
      */
     public Welcome() {
         initComponents();
+        
     }
 
     /**
@@ -37,10 +40,10 @@ public class Welcome extends javax.swing.JPanel {
         jLabel8 = new javax.swing.JLabel();
         LogoutButton = new javax.swing.JButton();
         jLabelCuenta = new javax.swing.JLabel();
-        jTextFieldContraseña = new javax.swing.JTextField();
         jLabelContraseña = new javax.swing.JLabel();
         jLabelUsuario = new javax.swing.JLabel();
         jTextFieldUsuario = new javax.swing.JTextField();
+        JPasswordFieldContraseña = new javax.swing.JPasswordField();
 
         setBackground(new java.awt.Color(41, 44, 51));
         setPreferredSize(new java.awt.Dimension(800, 600));
@@ -91,9 +94,6 @@ public class Welcome extends javax.swing.JPanel {
         jLabelCuenta.setForeground(new java.awt.Color(204, 204, 204));
         jLabelCuenta.setText("Mi cuenta: ");
 
-        jTextFieldContraseña.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jTextFieldContraseña.setText("usuario");
-
         jLabelContraseña.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 24)); // NOI18N
         jLabelContraseña.setForeground(new java.awt.Color(204, 204, 204));
         jLabelContraseña.setText("Contraseña");
@@ -102,8 +102,14 @@ public class Welcome extends javax.swing.JPanel {
         jLabelUsuario.setForeground(new java.awt.Color(204, 204, 204));
         jLabelUsuario.setText("Usuario");
 
+        jTextFieldUsuario.setEditable(false);
+        jTextFieldUsuario.setBackground(new java.awt.Color(69, 73, 74));
         jTextFieldUsuario.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jTextFieldUsuario.setText("usuario");
+
+        JPasswordFieldContraseña.setEditable(false);
+        JPasswordFieldContraseña.setBackground(new java.awt.Color(69, 73, 74));
+        JPasswordFieldContraseña.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        JPasswordFieldContraseña.setText("jPasswordField1");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -136,19 +142,22 @@ public class Welcome extends javax.swing.JPanel {
                 .addContainerGap(327, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(LogoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(214, 214, 214))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(182, 182, 182)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabelUsuario)
-                        .addComponent(jLabelContraseña))
-                    .addGap(51, 51, 51)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jTextFieldUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jTextFieldContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addContainerGap(183, Short.MAX_VALUE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabelContraseña)
+                            .addGap(468, 468, 468))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(JPasswordFieldContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabelUsuario)
+                                    .addGap(99, 99, 99)
+                                    .addComponent(jTextFieldUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGap(184, 184, 184)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(LogoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(217, 217, 217))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -159,51 +168,57 @@ public class Welcome extends javax.swing.JPanel {
                     .addComponent(jLabel6))
                 .addGap(66, 66, 66)
                 .addComponent(jLabelCuenta)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 146, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addComponent(jLabelUsuario))
+                    .addComponent(jTextFieldUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(JPasswordFieldContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addComponent(jLabelContraseña)))
+                .addGap(16, 16, 16)
                 .addComponent(LogoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(165, 165, 165)
+                .addGap(156, 156, 156)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel4)
                     .addComponent(jLabel5)
                     .addComponent(jLabel1)
                     .addComponent(jLabel7)
-                    .addComponent(jLabel8)))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(250, 250, 250)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(5, 5, 5)
-                            .addComponent(jLabelUsuario)
-                            .addGap(21, 21, 21)
-                            .addComponent(jLabelContraseña))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jTextFieldUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(6, 6, 6)
-                            .addComponent(jTextFieldContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addContainerGap(250, Short.MAX_VALUE)))
+                    .addComponent(jLabel8))
+                .addGap(17, 17, 17))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void LogoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogoutButtonActionPerformed
         // TODO add your handling code here:
-        //        if(bd.getConnection(jTextFieldUsuario.getText(), jTextFieldContraseña.getText()))
         GUI.cambiarContenedor(GUI.Login);
-        
-        //        else
-        //        JOptionPane.showMessageDialog(this, "Las credenciales introducidas son erróneas.", "Error" , 0);
+        GUI.Login.deletePassword();
+        GUI.showMenuBar(false);
+        try {
+            GUI.con.getConnection().close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }//GEN-LAST:event_LogoutButtonActionPerformed
 
-    public void setGUI(GUI GUI){
+    protected void setGUI(GUI GUI){
         this.GUI = GUI;
     }
     
+    protected void setCredentials(String usuario, String contraseña){
+        jTextFieldUsuario.setText(usuario);
+        JPasswordFieldContraseña.setText(contraseña);
+    }
 
     
-//    private Login Login = new Login();
     private GUI GUI;
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPasswordField JPasswordFieldContraseña;
     private javax.swing.JButton LogoutButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -216,7 +231,6 @@ public class Welcome extends javax.swing.JPanel {
     private javax.swing.JLabel jLabelContraseña;
     private javax.swing.JLabel jLabelCuenta;
     private javax.swing.JLabel jLabelUsuario;
-    private javax.swing.JTextField jTextFieldContraseña;
     private javax.swing.JTextField jTextFieldUsuario;
     // End of variables declaration//GEN-END:variables
 }

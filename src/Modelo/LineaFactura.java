@@ -10,6 +10,7 @@ package Modelo;
  * @author BLR
  */
 public class LineaFactura {
+    private int cod;
     private int nfactura;
     private int codlibro;
     private int cantidad;
@@ -20,13 +21,21 @@ public class LineaFactura {
         
     }
     
-    public LineaFactura(int nfactura, int codlibro, int cantidad, float importe){
+    public LineaFactura(int cod, int nfactura, int codlibro, int cantidad, float importe){
+        this.cod = cod;
         this.nfactura = nfactura;
         this.codlibro = codlibro;
         this.cantidad = cantidad;
         this.importe = importe;
     }
 
+    /**
+     * @return the cod
+     */
+    public int getCod() {
+        return cod;
+    }
+    
     /**
      * @return the nfactura
      */
@@ -81,5 +90,12 @@ public class LineaFactura {
      */
     public void setImporte(float importe) {
         this.importe = importe;
+    }
+
+    /**
+     * @param cod the cod to set
+     */
+    public void setCod(int cod) {
+        this.cod = cod;
     }
 }

@@ -6,6 +6,7 @@
 package Vista;
 
 import Controlador.ConnectionBD;
+import Controlador.Consultas;
 
 
 /**
@@ -19,9 +20,21 @@ public class GUI extends javax.swing.JFrame {
      */
     public GUI() {
         initComponents();
+//        try {
+//            UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+//        } catch (ClassNotFoundException ex) {
+//            ex.printStackTrace();
+//        } catch (InstantiationException ex) {
+//            ex.printStackTrace();
+//        } catch (IllegalAccessException ex) {
+//            ex.printStackTrace();
+//        } catch (UnsupportedLookAndFeelException ex) {
+//            ex.printStackTrace();
+//        }
         Welcome.setGUI(this);
         Login.setGUI(this);
         cambiarContenedor(Login);
+        showMenuBar(false);
     }
 
     /**
@@ -33,10 +46,49 @@ public class GUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuBar = new javax.swing.JMenuBar();
+        jMenuInicio = new javax.swing.JMenu();
+        jMenuFacturas = new javax.swing.JMenu();
+        jMenuLinea = new javax.swing.JMenu();
+        jMenuDatos = new javax.swing.JMenu();
+        JMenuAbout = new javax.swing.JMenu();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(41, 44, 51));
         setResizable(false);
         setSize(new java.awt.Dimension(800, 600));
+
+        jMenuInicio.setText("Inicio");
+        jMenuInicio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuInicioMouseClicked(evt);
+            }
+        });
+        jMenuBar.add(jMenuInicio);
+
+        jMenuFacturas.setText("Facturas");
+        jMenuFacturas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuFacturasMouseClicked(evt);
+            }
+        });
+        jMenuBar.add(jMenuFacturas);
+
+        jMenuLinea.setText("Nueva Línea");
+        jMenuBar.add(jMenuLinea);
+
+        jMenuDatos.setText("Mis datos");
+        jMenuBar.add(jMenuDatos);
+
+        JMenuAbout.setText("Acerca de");
+        JMenuAbout.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                JMenuAboutMouseClicked(evt);
+            }
+        });
+        jMenuBar.add(JMenuAbout);
+
+        setJMenuBar(jMenuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -46,12 +98,29 @@ public class GUI extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 600, Short.MAX_VALUE)
+            .addGap(0, 577, Short.MAX_VALUE)
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void JMenuAboutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JMenuAboutMouseClicked
+        // TODO add your handling code here:
+        cambiarContenedor(About);
+    }//GEN-LAST:event_JMenuAboutMouseClicked
+
+    private void jMenuInicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuInicioMouseClicked
+        // TODO add your handling code here:
+        cambiarContenedor(Welcome);
+    }//GEN-LAST:event_jMenuInicioMouseClicked
+
+    private void jMenuFacturasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuFacturasMouseClicked
+        // TODO add your handling code here:
+        cambiarContenedor(VerFacturas);
+        VerFacturas.setFacturas(consultas.getFacturas(usuario));
+        VerFacturas.mostrarFacturas();
+    }//GEN-LAST:event_jMenuFacturasMouseClicked
 
     /**
      * @param args the command line arguments
@@ -93,9 +162,29 @@ public class GUI extends javax.swing.JFrame {
       pack();
     }
     
+    protected void showMenuBar(boolean show){
+        jMenuBar.setVisible(show);
+    }
+    
+    public ConnectionBD getConnectionBD(){
+        return con;
+    }
+    
+    
     protected ConnectionBD con;
     protected Welcome Welcome = new Welcome();
     protected Login Login = new Login();
+    protected About About = new About();
+    protected VerFacturas VerFacturas = new VerFacturas();
+    protected Consultas consultas = new Consultas();
+    protected String usuario;
+    protected String contraseña;
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu JMenuAbout;
+    private javax.swing.JMenuBar jMenuBar;
+    private javax.swing.JMenu jMenuDatos;
+    private javax.swing.JMenu jMenuFacturas;
+    private javax.swing.JMenu jMenuInicio;
+    private javax.swing.JMenu jMenuLinea;
     // End of variables declaration//GEN-END:variables
 }
