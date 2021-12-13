@@ -8,6 +8,7 @@ package Vista;
 
 import Controlador.ConnectionBD;
 import Controlador.Consultas;
+import Modelo.Socio;
 import javax.swing.JOptionPane;
 
 /**
@@ -75,7 +76,7 @@ public class Login extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(182, 182, 182)
+                .addGap(171, 171, 171)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
@@ -90,7 +91,7 @@ public class Login extends javax.swing.JPanel {
                         .addComponent(jLabelUsuario)
                         .addGap(99, 99, 99)
                         .addComponent(jTextFieldUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(183, Short.MAX_VALUE))
+                .addContainerGap(189, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -114,12 +115,14 @@ public class Login extends javax.swing.JPanel {
     private void AccederButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AccederButtonActionPerformed
         // TODO add your handling code here:
         GUI.con = new ConnectionBD();
-        System.out.println("action" + GUI.con.getConnection());
-        if(ConnectionBD.getConnection() != null && GUI.consultas.inicioSesion(jTextFieldUsuario.getText(), new String(JPasswordFieldContraseña.getPassword()))){
+        
+        GUI.socioLogeado = GUI.consultas.inicioSesion(jTextFieldUsuario.getText(), new String(JPasswordFieldContraseña.getPassword()));
+        
+        if(ConnectionBD.getConnection() != null && GUI.socioLogeado != null){
+            GUI.socioLogeado.setUsuario(jTextFieldUsuario.getText());
             GUI.cambiarContenedor(GUI.Welcome);
             GUI.Welcome.setCredentials(jTextFieldUsuario.getText(), new String(JPasswordFieldContraseña.getPassword()));
             GUI.showMenuBar(true);
-            
         } else
             JOptionPane.showMessageDialog(this, "Las credenciales introducidas son erróneas.", "Error" , 0);
 

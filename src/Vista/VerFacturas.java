@@ -5,6 +5,7 @@
  */
 package Vista;
 
+import Controlador.ConsultaUnoaUno;
 import Modelo.Factura;
 import Modelo.LineaFactura;
 import java.util.ArrayList;
@@ -14,15 +15,17 @@ import java.util.ArrayList;
  * @author BLR
  */
 public class VerFacturas extends javax.swing.JPanel {
-    private ArrayList<Factura> facturas = new ArrayList<Factura>();
     private ArrayList<LineaFactura> lineas = new ArrayList<LineaFactura>();
     private int indice = 0;
+    private ConsultaUnoaUno consulta;
+    private Factura factura = new Factura();
     
     /**
      * Creates new form VerFacturas
      */
     public VerFacturas() {
         initComponents();
+        disableLeft();
     }
 
     /**
@@ -38,17 +41,17 @@ public class VerFacturas extends javax.swing.JPanel {
         JButtonFirst = new javax.swing.JButton();
         JButtonPrevious = new javax.swing.JButton();
         JButtonNext = new javax.swing.JButton();
-        jLabelUsuario = new javax.swing.JLabel();
-        jLabelUsuario1 = new javax.swing.JLabel();
-        jLabelUsuario2 = new javax.swing.JLabel();
+        jLabelNumero = new javax.swing.JLabel();
+        jLabelFecha = new javax.swing.JLabel();
+        jLabelDireccion = new javax.swing.JLabel();
         jTextFieldNumero = new javax.swing.JTextField();
         jTextFieldFecha = new javax.swing.JTextField();
         jTextFieldDireccion = new javax.swing.JTextField();
-        jLabelUsuario3 = new javax.swing.JLabel();
+        jLabelFacturas = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
-        jSeparator1 = new javax.swing.JSeparator();
-        jLabelUsuario4 = new javax.swing.JLabel();
+        jListLineas = new javax.swing.JList<>();
+        jSeparator = new javax.swing.JSeparator();
+        jLabelLineas = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(41, 44, 51));
         setPreferredSize(new java.awt.Dimension(800, 600));
@@ -93,17 +96,17 @@ public class VerFacturas extends javax.swing.JPanel {
             }
         });
 
-        jLabelUsuario.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 24)); // NOI18N
-        jLabelUsuario.setForeground(new java.awt.Color(204, 204, 204));
-        jLabelUsuario.setText("Numero: ");
+        jLabelNumero.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 24)); // NOI18N
+        jLabelNumero.setForeground(new java.awt.Color(204, 204, 204));
+        jLabelNumero.setText("Numero: ");
 
-        jLabelUsuario1.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 24)); // NOI18N
-        jLabelUsuario1.setForeground(new java.awt.Color(204, 204, 204));
-        jLabelUsuario1.setText("Fecha:");
+        jLabelFecha.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 24)); // NOI18N
+        jLabelFecha.setForeground(new java.awt.Color(204, 204, 204));
+        jLabelFecha.setText("Fecha:");
 
-        jLabelUsuario2.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 24)); // NOI18N
-        jLabelUsuario2.setForeground(new java.awt.Color(204, 204, 204));
-        jLabelUsuario2.setText("Dirección:");
+        jLabelDireccion.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 24)); // NOI18N
+        jLabelDireccion.setForeground(new java.awt.Color(204, 204, 204));
+        jLabelDireccion.setText("Dirección:");
 
         jTextFieldNumero.setEditable(false);
         jTextFieldNumero.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -129,36 +132,31 @@ public class VerFacturas extends javax.swing.JPanel {
             }
         });
 
-        jLabelUsuario3.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 36)); // NOI18N
-        jLabelUsuario3.setForeground(new java.awt.Color(204, 204, 204));
-        jLabelUsuario3.setText("Facturas");
+        jLabelFacturas.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 36)); // NOI18N
+        jLabelFacturas.setForeground(new java.awt.Color(204, 204, 204));
+        jLabelFacturas.setText("Facturas");
 
-        jList1.setBackground(new java.awt.Color(41, 44, 51));
-        jList1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jList1.setForeground(new java.awt.Color(204, 204, 204));
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane1.setViewportView(jList1);
+        jListLineas.setBackground(new java.awt.Color(41, 44, 51));
+        jListLineas.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jListLineas.setForeground(new java.awt.Color(204, 204, 204));
+        jScrollPane1.setViewportView(jListLineas);
 
-        jSeparator1.setBackground(new java.awt.Color(204, 204, 204));
+        jSeparator.setBackground(new java.awt.Color(204, 204, 204));
 
-        jLabelUsuario4.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 36)); // NOI18N
-        jLabelUsuario4.setForeground(new java.awt.Color(204, 204, 204));
-        jLabelUsuario4.setText("Líneas");
+        jLabelLineas.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 36)); // NOI18N
+        jLabelLineas.setForeground(new java.awt.Color(204, 204, 204));
+        jLabelLineas.setText("Líneas");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(jSeparator, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(27, 27, 27)
-                        .addComponent(jLabelUsuario3))
+                        .addComponent(jLabelFacturas))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(52, 52, 52)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 701, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -167,9 +165,9 @@ public class VerFacturas extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabelUsuario1)
-                                    .addComponent(jLabelUsuario)
-                                    .addComponent(jLabelUsuario2))
+                                    .addComponent(jLabelFecha)
+                                    .addComponent(jLabelNumero)
+                                    .addComponent(jLabelDireccion))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jTextFieldNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -185,25 +183,25 @@ public class VerFacturas extends javax.swing.JPanel {
                                 .addComponent(JButtonLast, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(33, 33, 33)
-                        .addComponent(jLabelUsuario4)))
+                        .addComponent(jLabelLineas)))
                 .addContainerGap(47, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addComponent(jLabelUsuario3)
+                .addComponent(jLabelFacturas)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelUsuario)
+                    .addComponent(jLabelNumero)
                     .addComponent(jTextFieldNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelUsuario1)
+                    .addComponent(jLabelFecha)
                     .addComponent(jTextFieldFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelUsuario2)
+                    .addComponent(jLabelDireccion)
                     .addComponent(jTextFieldDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -212,9 +210,9 @@ public class VerFacturas extends javax.swing.JPanel {
                     .addComponent(JButtonNext, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(JButtonLast, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabelUsuario4)
+                .addComponent(jLabelLineas)
                 .addGap(36, 36, 36)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(92, 92, 92))
@@ -223,22 +221,57 @@ public class VerFacturas extends javax.swing.JPanel {
 
     private void JButtonLastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonLastActionPerformed
         // TODO add your handling code here:
+        consulta.irFinal();
+        factura = consulta.getUltima();
+        mostrarFacturas();
+        disableRight();
+        enableLeft();
+        
     }//GEN-LAST:event_JButtonLastActionPerformed
 
     private void JButtonFirstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonFirstActionPerformed
         // TODO add your handling code here:
+        consulta.irInicio();
+        factura = consulta.getInicial();
+        mostrarFacturas();
+        disableLeft();
+        enableRight();
+        
     }//GEN-LAST:event_JButtonFirstActionPerformed
 
     private void JButtonPreviousActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonPreviousActionPerformed
-        // TODO add your handling code here:
-        retroceder();
-        
+        previous();
     }//GEN-LAST:event_JButtonPreviousActionPerformed
 
-    private void JButtonNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonNextActionPerformed
+    public void previous() {
         // TODO add your handling code here:
-        avanzar();
+        
+        if(!consulta.esPrimero()){
+            enableLeft();
+            consulta.retroceder();
+            factura = consulta.getFactura();
+            mostrarFacturas();
+            enableRight();
+        }else
+            disableLeft();
+    }
+
+    private void JButtonNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonNextActionPerformed
+        next();
     }//GEN-LAST:event_JButtonNextActionPerformed
+
+    public void next() {
+        // TODO add your handling code here:
+        
+        if(!consulta.esUltimo()){
+            enableRight();
+            consulta.avanzar();
+            factura = consulta.getFactura();
+            mostrarFacturas();
+            enableLeft();
+        }else
+            disableRight();
+    }
 
     private void jTextFieldNumeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNumeroActionPerformed
         // TODO add your handling code here:
@@ -252,9 +285,6 @@ public class VerFacturas extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldDireccionActionPerformed
 
-    protected void setFacturas(ArrayList<Factura> facturas) {
-        this.facturas = facturas;
-    }
 
     /**
      * @param lineas the lineas to set
@@ -264,38 +294,72 @@ public class VerFacturas extends javax.swing.JPanel {
     }
     
     protected void mostrarFacturas(){
-        
-        jTextFieldNumero.setText(facturas.get(indice).getNumero()+"");
-        jTextFieldFecha.setText(facturas.get(indice).getFecha().toString());
-        jTextFieldDireccion.setText(facturas.get(indice).getDireccion());
-        
+        if(consulta.esNull()){
+            disableLeft();
+            disableRight();
+            jSeparator.setVisible(false);
+            jLabelLineas.setVisible(false);
+            jListLineas.setVisible(false);
+        }else{
+            jSeparator.setVisible(true);
+            jLabelLineas.setVisible(true);
+            jListLineas.setVisible(true);
+            
+            jTextFieldNumero.setText(factura.getNumero()+"");
+            jTextFieldFecha.setText(factura.getFecha().toString());
+            jTextFieldDireccion.setText(factura.getDireccion());
+        }
     }
     
-    protected void retroceder(){
-        indice--;
-        mostrarFacturas();
+
+    protected void enableRight() {
+        JButtonNext.setEnabled(true);
+        JButtonLast.setEnabled(true);
+    }
+
+    protected void disableLeft() {
+        JButtonPrevious.setEnabled(false);
+        JButtonFirst.setEnabled(false);
+    }
+
+
+    protected void enableLeft() {
+        JButtonPrevious.setEnabled(true);
+        JButtonFirst.setEnabled(true);
+    }
+
+    protected void disableRight() {
+        JButtonNext.setEnabled(false);
+        JButtonLast.setEnabled(false);
     }
     
-    protected void avanzar(){
-        indice++;
-        mostrarFacturas();
+    protected void setGUI(GUI GUI){
+        this.GUI = GUI;
+    }
+    
+    protected void setFactura(Factura factura){
+        this.factura = factura;
+    }
+    
+    protected void setConsulta(ConsultaUnoaUno consulta){
+        this.consulta = consulta;
     }
     
     
-    
+    private GUI GUI;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton JButtonFirst;
     private javax.swing.JButton JButtonLast;
     private javax.swing.JButton JButtonNext;
     private javax.swing.JButton JButtonPrevious;
-    private javax.swing.JLabel jLabelUsuario;
-    private javax.swing.JLabel jLabelUsuario1;
-    private javax.swing.JLabel jLabelUsuario2;
-    private javax.swing.JLabel jLabelUsuario3;
-    private javax.swing.JLabel jLabelUsuario4;
-    private javax.swing.JList<String> jList1;
+    private javax.swing.JLabel jLabelDireccion;
+    private javax.swing.JLabel jLabelFacturas;
+    private javax.swing.JLabel jLabelFecha;
+    private javax.swing.JLabel jLabelLineas;
+    private javax.swing.JLabel jLabelNumero;
+    private javax.swing.JList<String> jListLineas;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator;
     private javax.swing.JTextField jTextFieldDireccion;
     private javax.swing.JTextField jTextFieldFecha;
     private javax.swing.JTextField jTextFieldNumero;

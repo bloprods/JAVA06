@@ -24,12 +24,12 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jSeparator1" alignment="1" max="32767" attributes="0"/>
+          <Component id="jSeparator" alignment="1" max="32767" attributes="0"/>
           <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                      <Component id="jLabelUsuario3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelFacturas" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
@@ -40,9 +40,9 @@
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabelUsuario1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabelUsuario" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabelUsuario2" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabelFecha" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabelNumero" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabelDireccion" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -64,7 +64,7 @@
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-                      <Component id="jLabelUsuario4" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelLineas" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace pref="47" max="32767" attributes="0"/>
@@ -75,20 +75,20 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
-              <Component id="jLabelUsuario3" min="-2" max="-2" attributes="0"/>
+              <Component id="jLabelFacturas" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabelUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabelNumero" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jTextFieldNumero" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabelUsuario1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabelFecha" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jTextFieldFecha" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabelUsuario2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabelDireccion" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jTextFieldDireccion" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -99,9 +99,9 @@
                   <Component id="JButtonLast" alignment="3" min="-2" pref="47" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-              <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
+              <Component id="jSeparator" min="-2" pref="10" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jLabelUsuario4" min="-2" max="-2" attributes="0"/>
+              <Component id="jLabelLineas" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="178" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="92" max="-2" attributes="0"/>
@@ -178,7 +178,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JButtonNextActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabelUsuario">
+    <Component class="javax.swing.JLabel" name="jLabelNumero">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Arial Rounded MT Bold" size="24" style="1"/>
@@ -189,7 +189,7 @@
         <Property name="text" type="java.lang.String" value="Numero: "/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabelUsuario1">
+    <Component class="javax.swing.JLabel" name="jLabelFecha">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Arial Rounded MT Bold" size="24" style="1"/>
@@ -200,7 +200,7 @@
         <Property name="text" type="java.lang.String" value="Fecha:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabelUsuario2">
+    <Component class="javax.swing.JLabel" name="jLabelDireccion">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Arial Rounded MT Bold" size="24" style="1"/>
@@ -244,7 +244,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFieldDireccionActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabelUsuario3">
+    <Component class="javax.swing.JLabel" name="jLabelFacturas">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Arial Rounded MT Bold" size="36" style="1"/>
@@ -262,7 +262,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JList" name="jList1">
+        <Component class="javax.swing.JList" name="jListLineas">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="33" green="2c" red="29" type="rgb"/>
@@ -274,13 +274,7 @@
               <Color blue="cc" green="cc" red="cc" type="rgb"/>
             </Property>
             <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
-              <StringArray count="5">
-                <StringItem index="0" value="Item 1"/>
-                <StringItem index="1" value="Item 2"/>
-                <StringItem index="2" value="Item 3"/>
-                <StringItem index="3" value="Item 4"/>
-                <StringItem index="4" value="Item 5"/>
-              </StringArray>
+              <StringArray count="0"/>
             </Property>
           </Properties>
           <AuxValues>
@@ -289,14 +283,14 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JSeparator" name="jSeparator1">
+    <Component class="javax.swing.JSeparator" name="jSeparator">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="cc" green="cc" red="cc" type="rgb"/>
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabelUsuario4">
+    <Component class="javax.swing.JLabel" name="jLabelLineas">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Arial Rounded MT Bold" size="36" style="1"/>

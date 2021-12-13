@@ -68,4 +68,11 @@ public class Factura {
     public void setDireccion(String direccion) {
         this.direccion = direccion;
     }
+    
+    @Override
+    public String toString(){
+        return ("Numero: " + numero +
+                "\nFecha: " + fecha + 
+                "\nDirección: " + direccion);
+    }
 }

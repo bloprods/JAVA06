@@ -6,7 +6,10 @@
 package Vista;
 
 import Controlador.ConnectionBD;
+import Controlador.ConsultaUnoaUno;
 import Controlador.Consultas;
+import Modelo.Socio;
+import javax.swing.JOptionPane;
 
 
 /**
@@ -33,6 +36,8 @@ public class GUI extends javax.swing.JFrame {
 //        }
         Welcome.setGUI(this);
         Login.setGUI(this);
+        VerFacturas.setGUI(this);
+        MisDatos.setGUI(this);
         cambiarContenedor(Login);
         showMenuBar(false);
     }
@@ -78,6 +83,11 @@ public class GUI extends javax.swing.JFrame {
         jMenuBar.add(jMenuLinea);
 
         jMenuDatos.setText("Mis datos");
+        jMenuDatos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuDatosMouseClicked(evt);
+            }
+        });
         jMenuBar.add(jMenuDatos);
 
         JMenuAbout.setText("Acerca de");
@@ -117,10 +127,27 @@ public class GUI extends javax.swing.JFrame {
 
     private void jMenuFacturasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuFacturasMouseClicked
         // TODO add your handling code here:
-        cambiarContenedor(VerFacturas);
-        VerFacturas.setFacturas(consultas.getFacturas(usuario));
-        VerFacturas.mostrarFacturas();
+        
+        consulta = new ConsultaUnoaUno(socioLogeado.getUsuario());
+        if(consulta.esNull())
+            JOptionPane.showMessageDialog(this, "Usted no tiene facturas.", null, 1);
+        else{
+            cambiarContenedor(VerFacturas);
+            VerFacturas.setConsulta(consulta);
+            consulta.avanzar();
+            VerFacturas.setFactura(consulta.getFactura());
+            VerFacturas.mostrarFacturas();
+        }
+            
+        
     }//GEN-LAST:event_jMenuFacturasMouseClicked
+
+    private void jMenuDatosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuDatosMouseClicked
+        // TODO add your handling code here:
+        cambiarContenedor(MisDatos);
+        MisDatos.setDatos();
+        
+    }//GEN-LAST:event_jMenuDatosMouseClicked
 
     /**
      * @param args the command line arguments
@@ -166,19 +193,26 @@ public class GUI extends javax.swing.JFrame {
         jMenuBar.setVisible(show);
     }
     
-    public ConnectionBD getConnectionBD(){
-        return con;
+    protected void resetearPaneles(){
+        //al hacer logout hay que resetear los paneles
     }
     
     
-    protected ConnectionBD con;
+    
+    
+    //Paneles
     protected Welcome Welcome = new Welcome();
     protected Login Login = new Login();
     protected About About = new About();
     protected VerFacturas VerFacturas = new VerFacturas();
     protected Consultas consultas = new Consultas();
-    protected String usuario;
-    protected String contraseña;
+    protected MisDatos MisDatos = new MisDatos();
+    
+    //Objetos
+    protected ConsultaUnoaUno consulta;
+    protected Socio socioLogeado = new Socio();
+    protected ConnectionBD con;
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu JMenuAbout;
     private javax.swing.JMenuBar jMenuBar;
