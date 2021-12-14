@@ -9,6 +9,7 @@ import Controlador.ConsultaUnoaUno;
 import Modelo.Factura;
 import Modelo.LineaFactura;
 import java.util.ArrayList;
+import javax.swing.DefaultListModel;
 
 /**
  *
@@ -16,9 +17,9 @@ import java.util.ArrayList;
  */
 public class VerFacturas extends javax.swing.JPanel {
     private ArrayList<LineaFactura> lineas = new ArrayList<LineaFactura>();
-    private int indice = 0;
     private ConsultaUnoaUno consulta;
     private Factura factura = new Factura();
+    private GUI GUI;
     
     /**
      * Creates new form VerFacturas
@@ -224,9 +225,9 @@ public class VerFacturas extends javax.swing.JPanel {
         consulta.irFinal();
         factura = consulta.getUltima();
         mostrarFacturas();
+        mostrarLineas(factura.getNumero());
         disableRight();
         enableLeft();
-        
     }//GEN-LAST:event_JButtonLastActionPerformed
 
     private void JButtonFirstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonFirstActionPerformed
@@ -234,9 +235,9 @@ public class VerFacturas extends javax.swing.JPanel {
         consulta.irInicio();
         factura = consulta.getInicial();
         mostrarFacturas();
+        mostrarLineas(factura.getNumero());
         disableLeft();
         enableRight();
-        
     }//GEN-LAST:event_JButtonFirstActionPerformed
 
     private void JButtonPreviousActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonPreviousActionPerformed
@@ -251,6 +252,7 @@ public class VerFacturas extends javax.swing.JPanel {
             consulta.retroceder();
             factura = consulta.getFactura();
             mostrarFacturas();
+            mostrarLineas(factura.getNumero());
             enableRight();
         }else
             disableLeft();
@@ -268,6 +270,7 @@ public class VerFacturas extends javax.swing.JPanel {
             consulta.avanzar();
             factura = consulta.getFactura();
             mostrarFacturas();
+            mostrarLineas(factura.getNumero());
             enableLeft();
         }else
             disableRight();
@@ -310,7 +313,15 @@ public class VerFacturas extends javax.swing.JPanel {
             jTextFieldDireccion.setText(factura.getDireccion());
         }
     }
-    
+    protected void mostrarLineas(int nfactura){
+        lineas = GUI.consultas.getLineas(nfactura);
+        DefaultListModel model = new DefaultListModel();
+        
+        for (LineaFactura l : lineas){
+            model.addElement(l);
+        }
+        jListLineas.setModel(model);
+    }
 
     protected void enableRight() {
         JButtonNext.setEnabled(true);
@@ -346,7 +357,7 @@ public class VerFacturas extends javax.swing.JPanel {
     }
     
     
-    private GUI GUI;
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton JButtonFirst;
     private javax.swing.JButton JButtonLast;

@@ -5,15 +5,27 @@
  */
 package Vista;
 
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
+import java.sql.SQLException;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author alumno
  */
 public class MisDatos extends javax.swing.JPanel {
+
     private GUI GUI;
-    
+    private String filepath;
+
     /**
-     * Creates new form MisDatosç
+     * Creates new form MisDatos
      */
     public MisDatos() {
         initComponents();
@@ -30,37 +42,42 @@ public class MisDatos extends javax.swing.JPanel {
 
         jTextFieldNIF = new javax.swing.JTextField();
         jTextFieldNombre = new javax.swing.JTextField();
-        jTextFieldFecha = new javax.swing.JTextField();
         jLabelFacturas = new javax.swing.JLabel();
         jLabelNIF = new javax.swing.JLabel();
         jLabelFoto = new javax.swing.JLabel();
         jLabelFecha = new javax.swing.JLabel();
         jLabelNombre = new javax.swing.JLabel();
+        jDateChooser = new com.toedter.calendar.JDateChooser();
+        JButtonGuardar = new javax.swing.JButton();
+        jButtonEdit = new javax.swing.JButton();
+        LogoutButton = new javax.swing.JButton();
+        jLabelContraseña = new javax.swing.JLabel();
+        jLabelUsuario = new javax.swing.JLabel();
+        JPasswordFieldContraseña = new javax.swing.JPasswordField();
+        jTextFieldUsuario = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(41, 44, 51));
         setPreferredSize(new java.awt.Dimension(800, 600));
 
-        jTextFieldNIF.setEditable(false);
+        jTextFieldNIF.setBackground(new java.awt.Color(204, 204, 204));
         jTextFieldNIF.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jTextFieldNIF.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldNIFActionPerformed(evt);
+        jTextFieldNIF.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jTextFieldNIFMouseEntered(evt);
             }
         });
 
         jTextFieldNombre.setEditable(false);
+        jTextFieldNombre.setBackground(new java.awt.Color(204, 204, 204));
         jTextFieldNombre.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jTextFieldNombre.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jTextFieldNIFMouseEntered(evt);
+            }
+        });
         jTextFieldNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldNombreActionPerformed(evt);
-            }
-        });
-
-        jTextFieldFecha.setEditable(false);
-        jTextFieldFecha.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jTextFieldFecha.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldFechaActionPerformed(evt);
             }
         });
 
@@ -70,19 +87,115 @@ public class MisDatos extends javax.swing.JPanel {
 
         jLabelNIF.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 24)); // NOI18N
         jLabelNIF.setForeground(new java.awt.Color(204, 204, 204));
-        jLabelNIF.setText("NIF:");
+        jLabelNIF.setText("NIF");
+        jLabelNIF.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jTextFieldNIFMouseEntered(evt);
+            }
+        });
 
         jLabelFoto.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 24)); // NOI18N
         jLabelFoto.setForeground(new java.awt.Color(204, 204, 204));
-        jLabelFoto.setText("FOTO");
 
         jLabelFecha.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 24)); // NOI18N
         jLabelFecha.setForeground(new java.awt.Color(204, 204, 204));
-        jLabelFecha.setText("Fecha de alta:");
+        jLabelFecha.setText("Fecha de alta");
+        jLabelFecha.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jTextFieldNIFMouseEntered(evt);
+            }
+        });
 
         jLabelNombre.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 24)); // NOI18N
         jLabelNombre.setForeground(new java.awt.Color(204, 204, 204));
-        jLabelNombre.setText("Nombre:");
+        jLabelNombre.setText("Nombre");
+        jLabelNombre.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jTextFieldNIFMouseEntered(evt);
+            }
+        });
+
+        jDateChooser.setBackground(new java.awt.Color(204, 204, 204));
+        jDateChooser.setDateFormatString("dd/MM/yyyy");
+        jDateChooser.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jDateChooser.setPreferredSize(new java.awt.Dimension(85, 24));
+        jDateChooser.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jTextFieldNIFMouseEntered(evt);
+            }
+        });
+
+        JButtonGuardar.setBackground(new java.awt.Color(56, 67, 75));
+        JButtonGuardar.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 24)); // NOI18N
+        JButtonGuardar.setForeground(new java.awt.Color(255, 255, 255));
+        JButtonGuardar.setText("Guardar");
+        JButtonGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JButtonGuardarActionPerformed(evt);
+            }
+        });
+
+        jButtonEdit.setBackground(new java.awt.Color(56, 67, 75));
+        jButtonEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEditActionPerformed(evt);
+            }
+        });
+
+        LogoutButton.setBackground(new java.awt.Color(56, 67, 75));
+        LogoutButton.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 24)); // NOI18N
+        LogoutButton.setForeground(new java.awt.Color(255, 255, 255));
+        LogoutButton.setText("Logout");
+        LogoutButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LogoutButtonActionPerformed(evt);
+            }
+        });
+
+        jLabelContraseña.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 24)); // NOI18N
+        jLabelContraseña.setForeground(new java.awt.Color(204, 204, 204));
+        jLabelContraseña.setText("Contraseña");
+        jLabelContraseña.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jTextFieldNIFMouseEntered(evt);
+            }
+        });
+
+        jLabelUsuario.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 24)); // NOI18N
+        jLabelUsuario.setForeground(new java.awt.Color(204, 204, 204));
+        jLabelUsuario.setText("Usuario");
+        jLabelUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jTextFieldNIFMouseEntered(evt);
+            }
+        });
+
+        JPasswordFieldContraseña.setEditable(false);
+        JPasswordFieldContraseña.setBackground(new java.awt.Color(204, 204, 204));
+        JPasswordFieldContraseña.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        JPasswordFieldContraseña.setText("jPasswordField1");
+        JPasswordFieldContraseña.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                JPasswordFieldContraseñaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                JPasswordFieldContraseñaMouseExited(evt);
+            }
+        });
+
+        jTextFieldUsuario.setEditable(false);
+        jTextFieldUsuario.setBackground(new java.awt.Color(204, 204, 204));
+        jTextFieldUsuario.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jTextFieldUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jTextFieldNIFMouseEntered(evt);
+            }
+        });
+        jTextFieldUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldUsuarioActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -92,76 +205,185 @@ public class MisDatos extends javax.swing.JPanel {
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabelFacturas)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(25, 25, 25)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabelNIF)
                             .addComponent(jLabelFecha)
-                            .addComponent(jLabelNombre))
-                        .addGap(18, 18, 18)
+                            .addComponent(jLabelNombre)
+                            .addComponent(jLabelUsuario)
+                            .addComponent(jLabelContraseña))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextFieldNIF, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextFieldFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(84, 84, 84)
-                        .addComponent(jLabelFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabelFacturas))
-                .addContainerGap(91, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(JPasswordFieldContraseña)
+                                    .addComponent(jTextFieldNIF)
+                                    .addComponent(jTextFieldNombre)
+                                    .addComponent(jTextFieldUsuario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addComponent(jDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 85, Short.MAX_VALUE)
+                        .addComponent(jLabelFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(LogoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(JButtonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(38, 38, 38))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(71, 71, 71)
                 .addComponent(jLabelFacturas)
+                .addGap(94, 94, 94)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(110, 110, 110)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jTextFieldNIF, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabelNIF))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabelNombre))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jTextFieldNIF, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabelNIF)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabelNombre)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabelFecha)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabelFecha)
-                            .addComponent(jTextFieldFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(102, 102, 102)
-                        .addComponent(jLabelFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(250, Short.MAX_VALUE))
+                            .addComponent(jTextFieldUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelUsuario))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(JPasswordFieldContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelContraseña)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButtonEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(19, 19, 19)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 134, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(LogoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(JButtonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(40, 40, 40))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jTextFieldNIFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNIFActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldNIFActionPerformed
 
     private void jTextFieldNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNombreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldNombreActionPerformed
 
-    private void jTextFieldFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldFechaActionPerformed
+    private void JButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonGuardarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldFechaActionPerformed
+        GUI.socioLogeado.setNif(jTextFieldNIF.getText());
+        GUI.socioLogeado.setFechaAlta(jDateChooser.getDate());
+        copiarImagen();
 
-    protected void setGUI(GUI GUI){
+    }//GEN-LAST:event_JButtonGuardarActionPerformed
+
+    private void jButtonEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditActionPerformed
+        // TODO add your handling code here:
+        JFileChooser fchooser = new JFileChooser();
+        fchooser.showOpenDialog(this);
+        File imgfile = fchooser.getSelectedFile();
+        if (imgfile != null) {
+            this.filepath = imgfile.getAbsolutePath();
+            jLabelFoto.setIcon(createIcon(this.filepath, 147, 134));
+        }
+    }//GEN-LAST:event_jButtonEditActionPerformed
+
+    private void LogoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogoutButtonActionPerformed
+        // TODO add your handling code here:
+        GUI.cambiarContenedor(GUI.Login);
+        GUI.Login.deletePassword();
+        GUI.showMenuBar(false);
+        
+        try {
+            GUI.con.getConnection().close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        JOptionPane.showMessageDialog(this, "Se ha cerrado la sesión", null, 1);
+        
+    }//GEN-LAST:event_LogoutButtonActionPerformed
+
+    private void jTextFieldUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldUsuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldUsuarioActionPerformed
+
+    private void jTextFieldNIFMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldNIFMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldNIFMouseEntered
+
+    private void JPasswordFieldContraseñaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JPasswordFieldContraseñaMouseEntered
+        // TODO add your handling code here:
+        JPasswordFieldContraseña.setEchoChar((char)0);
+    }//GEN-LAST:event_JPasswordFieldContraseñaMouseEntered
+
+    private void JPasswordFieldContraseñaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JPasswordFieldContraseñaMouseExited
+        // TODO add your handling code here:
+        JPasswordFieldContraseña.setEchoChar('*');
+    }//GEN-LAST:event_JPasswordFieldContraseñaMouseExited
+
+    protected void setGUI(GUI GUI) {
         this.GUI = GUI;
     }
 
-    protected void setDatos(){
+    protected void setDatos() {
         jTextFieldNIF.setText(GUI.socioLogeado.getNif());
         jTextFieldNombre.setText(GUI.socioLogeado.getNombre());
-        jTextFieldFecha.setText(GUI.socioLogeado.getFechaAlta().toString());
+        jDateChooser.setDate(GUI.socioLogeado.getFechaAlta());
+        jTextFieldUsuario.setText(GUI.socioLogeado.getUsuario());
+        JPasswordFieldContraseña.setText(GUI.socioLogeado.getContraseña());
+        
+        jLabelFoto.setIcon(createIcon("img/" + GUI.socioLogeado.getFoto(), 147, 134));
+        jButtonEdit.setIcon(createIcon("img/edit.png", 30, 30));
     }
-    
+
+    protected ImageIcon createIcon(String path, int width, int height) {
+        var icon = new ImageIcon(path);
+        Image img = icon.getImage();
+        icon = new ImageIcon(img.getScaledInstance(width, height, Image.SCALE_SMOOTH));
+        return icon;
+    }
+
+    protected void copiarImagen() {
+
+        try {
+
+            Files.copy(new File(filepath).toPath(), new File("img/" + GUI.socioLogeado.getNif() + ".jpg").toPath(), StandardCopyOption.REPLACE_EXISTING);
+        } catch(NullPointerException ignore){
+            
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton JButtonGuardar;
+    private javax.swing.JPasswordField JPasswordFieldContraseña;
+    private javax.swing.JButton LogoutButton;
+    private javax.swing.JButton jButtonEdit;
+    private com.toedter.calendar.JDateChooser jDateChooser;
+    private javax.swing.JLabel jLabelContraseña;
     private javax.swing.JLabel jLabelFacturas;
     private javax.swing.JLabel jLabelFecha;
     private javax.swing.JLabel jLabelFoto;
     private javax.swing.JLabel jLabelNIF;
     private javax.swing.JLabel jLabelNombre;
-    private javax.swing.JTextField jTextFieldFecha;
+    private javax.swing.JLabel jLabelUsuario;
     private javax.swing.JTextField jTextFieldNIF;
     private javax.swing.JTextField jTextFieldNombre;
+    private javax.swing.JTextField jTextFieldUsuario;
     // End of variables declaration//GEN-END:variables
 }

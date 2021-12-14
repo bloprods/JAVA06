@@ -69,10 +69,12 @@ public class Factura {
         this.direccion = direccion;
     }
     
+    
     @Override
     public String toString(){
-        return ("Numero: " + numero +
-                "\nFecha: " + fecha + 
-                "\nDirección: " + direccion);
+        return (//"Numero: " + 
+                numero +
+                " |\n Fecha: " + fecha + 
+                " |\n Dirección: " + direccion);
     }
 }

@@ -10,7 +10,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.PreparedStatement;
 
 /**
  *
@@ -19,7 +19,8 @@ import java.sql.Statement;
 public class ConsultaUnoaUno {
     private Connection con = ConnectionBD.getConnection();
     private ResultSet rs;
-    private Statement stmt;
+    private PreparedStatement pstmt;
+    private int length;
     private Factura factura = new Factura();
     private Factura inicial = new Factura();
     private Factura ultima = new Factura();
@@ -27,18 +28,23 @@ public class ConsultaUnoaUno {
     public ConsultaUnoaUno(String usuario) {
         
         try {
-            stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, 
+            String consulta = "select * from factura where nifsocio = (select nif from socio where usuario = ?) order by numero";
+            pstmt = con.prepareStatement(consulta,
+                                        ResultSet.TYPE_SCROLL_INSENSITIVE, 
                                         ResultSet.CONCUR_READ_ONLY);
-            this.rs = stmt.executeQuery("select * from factura where nifsocio = (select nif from socio where usuario = '" + usuario + "') order by numero");
+            pstmt.setString(1, usuario);
+            this.rs = pstmt.executeQuery();
             
-            if(size() == 0)
+            length = size();
+            
+            if(length == 0)
                 this.rs = null;
             
         } catch (SQLException ex) {
             this.rs = null;
         }
     }
-int i = 0;
+
     public boolean esNull(){
         return rs == null;
     }
@@ -57,7 +63,7 @@ int i = 0;
     public void closeObjects(){
         try {
             rs.close();
-            stmt.close();
+            pstmt.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }

@@ -7,8 +7,6 @@
 package Vista;
 
 import Controlador.ConnectionBD;
-import Controlador.Consultas;
-import Modelo.Socio;
 import javax.swing.JOptionPane;
 
 /**
@@ -121,7 +119,6 @@ public class Login extends javax.swing.JPanel {
         if(ConnectionBD.getConnection() != null && GUI.socioLogeado != null){
             GUI.socioLogeado.setUsuario(jTextFieldUsuario.getText());
             GUI.cambiarContenedor(GUI.Welcome);
-            GUI.Welcome.setCredentials(jTextFieldUsuario.getText(), new String(JPasswordFieldContraseña.getPassword()));
             GUI.showMenuBar(true);
         } else
             JOptionPane.showMessageDialog(this, "Las credenciales introducidas son erróneas.", "Error" , 0);
@@ -131,8 +128,6 @@ public class Login extends javax.swing.JPanel {
     private void jTextFieldUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldUsuarioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldUsuarioActionPerformed
-    
-    
     
     protected void setGUI(GUI GUI){
         this.GUI = GUI;

@@ -98,4 +98,12 @@ public class LineaFactura {
     public void setCod(int cod) {
         this.cod = cod;
     }
+    
+    public String toString(){
+        return (cod + 
+                " | NFactura: " + nfactura + 
+                " | CodLibro: " + codlibro + 
+                " | Cantidad: " + cantidad + 
+                " | Importe: " + String.format("%.2f", importe) + " €");
+    }
 }

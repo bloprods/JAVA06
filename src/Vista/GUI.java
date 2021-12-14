@@ -38,6 +38,7 @@ public class GUI extends javax.swing.JFrame {
         Login.setGUI(this);
         VerFacturas.setGUI(this);
         MisDatos.setGUI(this);
+        NuevaLinea.setGUI(this);
         cambiarContenedor(Login);
         showMenuBar(false);
     }
@@ -64,6 +65,7 @@ public class GUI extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(800, 600));
 
         jMenuInicio.setText("Inicio");
+        jMenuInicio.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jMenuInicio.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jMenuInicioMouseClicked(evt);
@@ -72,6 +74,7 @@ public class GUI extends javax.swing.JFrame {
         jMenuBar.add(jMenuInicio);
 
         jMenuFacturas.setText("Facturas");
+        jMenuFacturas.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jMenuFacturas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jMenuFacturasMouseClicked(evt);
@@ -80,9 +83,16 @@ public class GUI extends javax.swing.JFrame {
         jMenuBar.add(jMenuFacturas);
 
         jMenuLinea.setText("Nueva Línea");
+        jMenuLinea.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jMenuLinea.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuLineaMouseClicked(evt);
+            }
+        });
         jMenuBar.add(jMenuLinea);
 
         jMenuDatos.setText("Mis datos");
+        jMenuDatos.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jMenuDatos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jMenuDatosMouseClicked(evt);
@@ -91,6 +101,7 @@ public class GUI extends javax.swing.JFrame {
         jMenuBar.add(jMenuDatos);
 
         JMenuAbout.setText("Acerca de");
+        JMenuAbout.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         JMenuAbout.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 JMenuAboutMouseClicked(evt);
@@ -108,7 +119,7 @@ public class GUI extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 577, Short.MAX_VALUE)
+            .addGap(0, 569, Short.MAX_VALUE)
         );
 
         pack();
@@ -137,6 +148,9 @@ public class GUI extends javax.swing.JFrame {
             consulta.avanzar();
             VerFacturas.setFactura(consulta.getFactura());
             VerFacturas.mostrarFacturas();
+            VerFacturas.mostrarLineas(consulta.getFactura().getNumero());
+            VerFacturas.disableLeft();
+            VerFacturas.enableRight();
         }
             
         
@@ -148,6 +162,13 @@ public class GUI extends javax.swing.JFrame {
         MisDatos.setDatos();
         
     }//GEN-LAST:event_jMenuDatosMouseClicked
+
+    private void jMenuLineaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuLineaMouseClicked
+        // TODO add your handling code here:
+        cambiarContenedor(NuevaLinea);
+        NuevaLinea.mostrarFacturas();
+        NuevaLinea.mostrarLibros();
+    }//GEN-LAST:event_jMenuLineaMouseClicked
 
     /**
      * @param args the command line arguments
@@ -207,6 +228,8 @@ public class GUI extends javax.swing.JFrame {
     protected VerFacturas VerFacturas = new VerFacturas();
     protected Consultas consultas = new Consultas();
     protected MisDatos MisDatos = new MisDatos();
+    protected NuevaLinea NuevaLinea = new NuevaLinea();
+
     
     //Objetos
     protected ConsultaUnoaUno consulta;

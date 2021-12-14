@@ -81,4 +81,13 @@ public class Libro {
     public void setPrecio(float precio) {
         this.precio = precio;
     }
+    
+    @Override
+    public String toString(){
+        return (//"Código: " + 
+                cod +
+                " |\n Nombre: " + nombre + 
+                " |\n Autor: " + autor +
+                " |\n Precio: " + String.format("%.2f", precio));
+    }
 }

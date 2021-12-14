@@ -116,4 +116,15 @@ public class Socio {
         this.contraseña = contraseña;
     }
     
+    
+    public String toString(){
+
+        return ("NIF: " + nif +
+                "\nNOMBRE: " + nombre +
+                "\nFECHA: " + fechaAlta.toString() +
+                "\nFOTO: " + foto +
+                "\nUSUARIO: " + usuario +
+                "\nCONTRASEÑA: " + contraseña);
+    }
+    
 }

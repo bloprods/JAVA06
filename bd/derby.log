@@ -1,14 +1,14 @@
-Mon Dec 13 15:50:06 CET 2021 : Servidor de red Apache Derby: Se ha iniciado 10.14.2.0 - (1828579) y est√° listo para aceptar las conexiones en el puerto 1527
+Tue Dec 14 11:34:19 CET 2021 : Servidor de red Apache Derby: Se ha iniciado 10.14.2.0 - (1828579) y est· listo para aceptar las conexiones en el puerto 1527
 ----------------------------------------------------------------
-Mon Dec 13 15:50:08 CET 2021:
- Iniciando instancia a816c00e-017d-b445-b10f-ffffc1893583 de Derby, versi√≥n The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): 
-en el directorio de base de datos /home/alumno/Documentos/JAVA06/bd/java06 con el cargador de clases jdk.internal.loader.ClassLoaders$AppClassLoader@277050dc
-Cargado desde file:/opt/netbeans-12.0/GlassFish_Server/javadb/lib/derby.jar
+Tue Dec 14 11:34:19 CET 2021:
+ Iniciando instancia a816c00e-017d-b881-e259-0000390fc16b de Derby, versiÛn The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): 
+en el directorio de base de datos C:\Users\BLR\Documents\NetBeansProjects\JAVA06\bd\java06 con el cargador de clases jdk.internal.loader.ClassLoaders$AppClassLoader@73d16e93
+Cargado desde file:/C:/Users/BLR/Documents/NetBeansProjects/JAVA06/libraries/db-derby-10.14.2.0-bin/lib/derby.jar
 java.vendor=Oracle Corporation
-java.runtime.version=11.0.11+9-LTS-194
-user.dir=/opt/netbeans-12.0/GlassFish_Server/javadb
-os.name=Linux
+java.runtime.version=16.0.1+9-24
+user.dir=C:\Users\BLR\Documents\NetBeansProjects\JAVA06\libraries\db-derby-10.14.2.0-bin
+os.name=Windows 10
 os.arch=amd64
-os.version=4.4.0-210-generic
-derby.system.home=/home/alumno/Documentos/JAVA06/bd
+os.version=10.0
+derby.system.home=C:\Users\BLR\Documents\NetBeansProjects\JAVA06\bd
 Cargador de clases de base de datos iniciado - derby.database.classpath=''
