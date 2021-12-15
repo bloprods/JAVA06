@@ -44,7 +44,7 @@
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="jTextFieldCantidad" min="-2" pref="64" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="JButtonFirst" min="-2" pref="117" max="-2" attributes="0"/>
+                                  <Component id="JButtonCrear" min="-2" pref="117" max="-2" attributes="0"/>
                               </Group>
                               <Component id="jScrollPane1" min="-2" pref="701" max="-2" attributes="0"/>
                               <Component id="jScrollPane2" min="-2" pref="701" max="-2" attributes="0"/>
@@ -71,12 +71,12 @@
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="178" max="-2" attributes="0"/>
               <EmptySpace pref="26" max="32767" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="JButtonFirst" alignment="3" min="-2" pref="47" max="-2" attributes="0"/>
-                  <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                       <Component id="jLabelCantidad" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jTextFieldCantidad" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
                   </Group>
+                  <Component id="JButtonCrear" min="-2" pref="47" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
           </Group>
@@ -170,7 +170,7 @@
         <Property name="text" type="java.lang.String" value="Selecciona una factura y un libro"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="JButtonFirst">
+    <Component class="javax.swing.JButton" name="JButtonCrear">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="4b" green="43" red="38" type="rgb"/>
@@ -184,7 +184,7 @@
         <Property name="text" type="java.lang.String" value="Crear"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JButtonFirstActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JButtonCrearActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabelCantidad">

@@ -169,4 +169,106 @@ public class Consultas {
         return n;
     }
     
+    public int updateFKTablaB(String nifactual, String nifnuevo){
+        int n = 0;
+        String consulta = "update factura set nifsocio = ? where nifsocio = ?";
+        
+        try {
+            Connection con = ConnectionBD.getConnection();
+            PreparedStatement pstmt = con.prepareStatement(consulta);
+            pstmt.setString(1, nifnuevo);
+            pstmt.setString(2, nifactual);
+            
+            n = pstmt.executeUpdate();
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        
+        return n;
+    }
+    
+    public int insertSocio(String nif, String nombre, Date falta, String foto, String usuario, String contraseña){
+        int n = 0;
+        String consulta = "insert into socio values(?, ?, ?, ?, ?, ?)";
+            
+        try {   
+            Connection con = ConnectionBD.getConnection();
+            PreparedStatement pstmt = con.prepareStatement(consulta);
+            pstmt.setString(1, nif);
+            pstmt.setString(2, nombre);
+            pstmt.setDate(3, falta);
+            pstmt.setString(4, foto);
+            pstmt.setString(5, usuario);
+            pstmt.setString(6, contraseña);
+            
+            n = pstmt.executeUpdate();
+            
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return n;
+    }
+    
+    public int deleteSocio(String nifAnterior){
+        int n = 0;
+        String consulta = "delete from socio where nif = ?";
+            
+        try {   
+            Connection con = ConnectionBD.getConnection();
+            PreparedStatement pstmt = con.prepareStatement(consulta);
+            pstmt.setString(1, nifAnterior);
+            
+            n = pstmt.executeUpdate();
+            
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return n;
+    }
+    
+    public int updateFechaSocio(Date fecha, String usuario){
+        int n = 0;
+        try {
+            String consulta = "update socio set fechaalta = ? where usuario = ?";
+            
+            Connection con = ConnectionBD.getConnection();
+            PreparedStatement pstmt = con.prepareStatement(consulta);
+            pstmt.setDate(1, fecha);
+            pstmt.setString(2, usuario);
+            
+            n = pstmt.executeUpdate();
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        
+        return n;
+    }
+    
+    public boolean existeSocio(String nif){
+        String consulta = "select count(*) from socio where nif = ?";
+        int n = 0;
+        try {
+            
+            Connection con = ConnectionBD.getConnection();
+            
+            PreparedStatement pstmt = con.prepareStatement(consulta);
+            pstmt.setString(1, nif);
+            ResultSet rs = pstmt.executeQuery();
+            
+            rs.next();
+            
+            n = rs.getInt(1);
+            
+            rs.close();
+            pstmt.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return n == 1;
+    }
+    
 }

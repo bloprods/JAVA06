@@ -7,6 +7,8 @@
 package Vista;
 
 import Controlador.ConnectionBD;
+import Controlador.Errores;
+import Controlador.Excepciones;
 import javax.swing.JOptionPane;
 
 /**
@@ -111,17 +113,21 @@ public class Login extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void AccederButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AccederButtonActionPerformed
-        // TODO add your handling code here:
-        GUI.con = new ConnectionBD();
-        
-        GUI.socioLogeado = GUI.consultas.inicioSesion(jTextFieldUsuario.getText(), new String(JPasswordFieldContraseña.getPassword()));
-        
-        if(ConnectionBD.getConnection() != null && GUI.socioLogeado != null){
-            GUI.socioLogeado.setUsuario(jTextFieldUsuario.getText());
-            GUI.cambiarContenedor(GUI.Welcome);
-            GUI.showMenuBar(true);
-        } else
-            JOptionPane.showMessageDialog(this, "Las credenciales introducidas son erróneas.", "Error" , 0);
+        try {
+            // TODO add your handling code here:
+            GUI.con = new ConnectionBD();
+            
+            GUI.socioLogeado = GUI.consultas.inicioSesion(jTextFieldUsuario.getText(), new String(JPasswordFieldContraseña.getPassword()));
+            
+            if(ConnectionBD.getConnection() != null && GUI.socioLogeado != null){
+                GUI.socioLogeado.setUsuario(jTextFieldUsuario.getText());
+                GUI.cambiarContenedor(GUI.Welcome);
+                GUI.showMenuBar(true);
+            } else
+                throw new Excepciones(7, Errores.getError(7));
+        } catch (Excepciones ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), null, 0);
+        }
 
     }//GEN-LAST:event_AccederButtonActionPerformed
 

@@ -1,0 +1,5 @@
+15/12/2021 12:55:53 | Error: Tiene que introducir un valor para cantidad
+15/12/2021 12:55:55 | Error: Tiene que introducir un valor para cantidad
+15/12/2021 12:55:57 | Error: Tiene que introducir un valor para cantidad
+15/12/2021 12:56:02 | Error: La cantidad introducida tiene que ser entre 1 y 99
+15/12/2021 12:56:06 | Error: La cantidad introducida tiene que ser entre 1 y 99

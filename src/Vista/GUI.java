@@ -8,7 +8,9 @@ package Vista;
 import Controlador.ConnectionBD;
 import Controlador.ConsultaUnoaUno;
 import Controlador.Consultas;
+import Controlador.Errores;
 import Modelo.Socio;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 
@@ -23,17 +25,9 @@ public class GUI extends javax.swing.JFrame {
      */
     public GUI() {
         initComponents();
-//        try {
-//            UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
-//        } catch (ClassNotFoundException ex) {
-//            ex.printStackTrace();
-//        } catch (InstantiationException ex) {
-//            ex.printStackTrace();
-//        } catch (IllegalAccessException ex) {
-//            ex.printStackTrace();
-//        } catch (UnsupportedLookAndFeelException ex) {
-//            ex.printStackTrace();
-//        }
+        this.setIconImage(new ImageIcon("img/ico.png").getImage());
+        Errores.setErrores();
+        
         Welcome.setGUI(this);
         Login.setGUI(this);
         VerFacturas.setGUI(this);
@@ -41,6 +35,7 @@ public class GUI extends javax.swing.JFrame {
         NuevaLinea.setGUI(this);
         cambiarContenedor(Login);
         showMenuBar(false);
+        
     }
 
     /**
@@ -60,6 +55,7 @@ public class GUI extends javax.swing.JFrame {
         JMenuAbout = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("JAVA06 by BLR");
         setBackground(new java.awt.Color(41, 44, 51));
         setResizable(false);
         setSize(new java.awt.Dimension(800, 600));
@@ -141,7 +137,7 @@ public class GUI extends javax.swing.JFrame {
         
         consulta = new ConsultaUnoaUno(socioLogeado.getUsuario());
         if(consulta.esNull())
-            JOptionPane.showMessageDialog(this, "Usted no tiene facturas.", null, 1);
+            JOptionPane.showMessageDialog(this, "Usted no tiene facturas", null, 1);
         else{
             cambiarContenedor(VerFacturas);
             VerFacturas.setConsulta(consulta);
@@ -235,6 +231,9 @@ public class GUI extends javax.swing.JFrame {
     protected ConsultaUnoaUno consulta;
     protected Socio socioLogeado = new Socio();
     protected ConnectionBD con;
+    
+    //Errores
+//    protected Errores err = new Errores();
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu JMenuAbout;

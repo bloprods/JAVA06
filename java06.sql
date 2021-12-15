@@ -30,7 +30,7 @@ create table linea_factura (
 	nfactura integer not null,
 	codlibro integer not null,
 	cantidad integer not null,
-	importe decimal not null,
+	importe decimal(6,2) not null,
 	constraint pk_linea_factura primary key (cod, nfactura, codlibro),
 	constraint fk_factura foreign key (nfactura) references factura(numero),
 	constraint fk_libro foreign key (codlibro) references libro(cod)

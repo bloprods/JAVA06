@@ -5,6 +5,8 @@
  */
 package Vista;
 
+import Controlador.Errores;
+import Controlador.Excepciones;
 import Modelo.Factura;
 import Modelo.Libro;
 import java.util.ArrayList;
@@ -42,7 +44,7 @@ public class NuevaLinea extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         jListFacturas = new javax.swing.JList<>();
         jLabel1 = new javax.swing.JLabel();
-        JButtonFirst = new javax.swing.JButton();
+        JButtonCrear = new javax.swing.JButton();
         jLabelCantidad = new javax.swing.JLabel();
         jTextFieldCantidad = new javax.swing.JTextField();
 
@@ -70,13 +72,13 @@ public class NuevaLinea extends javax.swing.JPanel {
         jLabel1.setForeground(new java.awt.Color(204, 204, 204));
         jLabel1.setText("Selecciona una factura y un libro");
 
-        JButtonFirst.setBackground(new java.awt.Color(56, 67, 75));
-        JButtonFirst.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 24)); // NOI18N
-        JButtonFirst.setForeground(new java.awt.Color(255, 255, 255));
-        JButtonFirst.setText("Crear");
-        JButtonFirst.addActionListener(new java.awt.event.ActionListener() {
+        JButtonCrear.setBackground(new java.awt.Color(56, 67, 75));
+        JButtonCrear.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 24)); // NOI18N
+        JButtonCrear.setForeground(new java.awt.Color(255, 255, 255));
+        JButtonCrear.setText("Crear");
+        JButtonCrear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JButtonFirstActionPerformed(evt);
+                JButtonCrearActionPerformed(evt);
             }
         });
 
@@ -113,7 +115,7 @@ public class NuevaLinea extends javax.swing.JPanel {
                                     .addGap(18, 18, 18)
                                     .addComponent(jTextFieldCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(JButtonFirst, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(JButtonCrear, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 701, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 701, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 51, Short.MAX_VALUE))))
@@ -132,37 +134,44 @@ public class NuevaLinea extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(JButtonFirst, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabelCantidad)
-                        .addComponent(jTextFieldCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jTextFieldCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(JButtonCrear, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(19, 19, 19))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void JButtonFirstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonFirstActionPerformed
+    private void JButtonCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonCrearActionPerformed
         try {
             // TODO add your handling code here:
-            Factura f = facturas.get(jListFacturas.getSelectedIndex());
-            Libro l = libros.get(jListLibros.getSelectedIndex());
+            int indexF = jListFacturas.getSelectedIndex();
+            int indexL = jListLibros.getSelectedIndex();
+            
+            if(jTextFieldCantidad.getText().equals(""))
+                throw new Excepciones(6, Errores.getError(6));
+            
             int cantidad = Integer.parseInt(jTextFieldCantidad.getText());
+
+            if(indexF == -1)
+                throw new Excepciones(3, Errores.getError(3));
+            if(indexL == -1)
+                throw new Excepciones(4, Errores.getError(4));
+            if(cantidad < 1 || cantidad > 99)
+                throw new Excepciones(5, Errores.getError(5));
+            
+            
+            Factura f = facturas.get(indexF);
+            Libro l = libros.get(indexL);
             float importe = l.getPrecio() * cantidad;
-            
-            if(f == null)
-                throw new Exception();
-            if(l == null)
-                throw new Exception();
-            
-            if(cantidad == 0)
-                throw new Exception();
             
             GUI.consultas.insertarLineaFactura(GUI.consultas.getNLineas(f.getNumero())+1, f.getNumero(), l.getCod(), cantidad, importe);
             JOptionPane.showMessageDialog(this, "Se ha insertado una nueva linea de factura", null, 1);
-        } catch(Exception ol){
-            System.out.println("error");
+        } catch(Excepciones ex){
+            JOptionPane.showMessageDialog(this, ex.getMessage(), null, 0);
         }
-    }//GEN-LAST:event_JButtonFirstActionPerformed
+    }//GEN-LAST:event_JButtonCrearActionPerformed
 
     private void jTextFieldCantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldCantidadActionPerformed
         // TODO add your handling code here:
@@ -195,7 +204,7 @@ public class NuevaLinea extends javax.swing.JPanel {
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton JButtonFirst;
+    private javax.swing.JButton JButtonCrear;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelCantidad;
     private javax.swing.JLabel jLabelFacturas;

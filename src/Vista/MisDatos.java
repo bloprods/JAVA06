@@ -5,12 +5,16 @@
  */
 package Vista;
 
+import Controlador.Excepciones;
+import Controlador.Errores;
+import com.aeat.valida.Validador;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
+import java.util.Date;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -284,10 +288,63 @@ public class MisDatos extends javax.swing.JPanel {
     }//GEN-LAST:event_jTextFieldNombreActionPerformed
 
     private void JButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonGuardarActionPerformed
-        // TODO add your handling code here:
-        GUI.socioLogeado.setNif(jTextFieldNIF.getText());
-        GUI.socioLogeado.setFechaAlta(jDateChooser.getDate());
-        copiarImagen();
+        Validador val = new Validador();
+        int ret = val.checkNif(jTextFieldNIF.getText());
+
+        try {
+            // TODO add your handling code here:
+            String nifAnterior = GUI.socioLogeado.getNif();
+            Date fechaAnterior = GUI.socioLogeado.getFechaAlta();
+            if (!fechaAnterior.equals(jDateChooser.getDate())) {
+                if (Errores.esfechaMayor(jDateChooser.getDate())) {
+                    jDateChooser.setDate(fechaAnterior);
+                    throw new Excepciones(1, Errores.getError(1));
+                } else {
+                    GUI.socioLogeado.setFechaAlta(jDateChooser.getDate());
+                    GUI.consultas.updateFechaSocio(new java.sql.Date(GUI.socioLogeado.getFechaAlta().getTime()), GUI.socioLogeado.getUsuario());
+                }
+            }
+
+            // UPDATE DEL NIF DEL SOCIO, como es PK en la tabla A y FK en la tabla B no se puede realizar directamente un update de
+            // la tabla A (al no existir la sentencia ON UPDATE CASCADE en la bd de derby).
+            // Debido a esto se hará una inserción de un socio con los datos del mismo pero con el nif que ha cambiado el usuario
+            // después se hará un update de todas las filas de la tabla B que contengan el nif anterior para cambiarlo al nuevo nif
+            // y finalmente se eliminará la fila sobrante de la tabla A (la del nif anterior)
+            if (!jTextFieldNIF.getText().contains(nifAnterior)) {
+                if (!GUI.consultas.existeSocio(jTextFieldNIF.getText())) {
+                    // Si ret es mayor que 0, el formato del nif es correcto
+                    if (ret > 0) {
+                        GUI.socioLogeado.setNif(jTextFieldNIF.getText());
+                        
+                        GUI.consultas.insertSocio(GUI.socioLogeado.getNif(),
+                                                    GUI.socioLogeado.getNombre(),
+                                                    new java.sql.Date(GUI.socioLogeado.getFechaAlta().getTime()),
+                                                    GUI.socioLogeado.getFoto(),
+                                                    GUI.socioLogeado.getUsuario(),
+                                                    GUI.socioLogeado.getContraseña());
+                        
+                        GUI.consultas.updateFKTablaB(nifAnterior, GUI.socioLogeado.getNif());
+                        
+                        GUI.consultas.deleteSocio(nifAnterior);
+                    } else {
+                        throw new Excepciones(8, Errores.getError(8));
+                    }
+
+                } else {
+                    jTextFieldNIF.setText(nifAnterior);
+                    throw new Excepciones(2, Errores.getError(2));
+                }
+
+            }
+
+            copiarImagen();
+
+            JOptionPane.showMessageDialog(this, "Se ha guardado los datos satisfactoriamente", null, 1);
+
+        } catch (Excepciones ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), null, 0);
+        }
+
 
     }//GEN-LAST:event_JButtonGuardarActionPerformed
 
@@ -307,14 +364,14 @@ public class MisDatos extends javax.swing.JPanel {
         GUI.cambiarContenedor(GUI.Login);
         GUI.Login.deletePassword();
         GUI.showMenuBar(false);
-        
+
         try {
             GUI.con.getConnection().close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
         JOptionPane.showMessageDialog(this, "Se ha cerrado la sesión", null, 1);
-        
+
     }//GEN-LAST:event_LogoutButtonActionPerformed
 
     private void jTextFieldUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldUsuarioActionPerformed
@@ -327,7 +384,7 @@ public class MisDatos extends javax.swing.JPanel {
 
     private void JPasswordFieldContraseñaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JPasswordFieldContraseñaMouseEntered
         // TODO add your handling code here:
-        JPasswordFieldContraseña.setEchoChar((char)0);
+        JPasswordFieldContraseña.setEchoChar((char) 0);
     }//GEN-LAST:event_JPasswordFieldContraseñaMouseEntered
 
     private void JPasswordFieldContraseñaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JPasswordFieldContraseñaMouseExited
@@ -345,7 +402,7 @@ public class MisDatos extends javax.swing.JPanel {
         jDateChooser.setDate(GUI.socioLogeado.getFechaAlta());
         jTextFieldUsuario.setText(GUI.socioLogeado.getUsuario());
         JPasswordFieldContraseña.setText(GUI.socioLogeado.getContraseña());
-        
+
         jLabelFoto.setIcon(createIcon("img/" + GUI.socioLogeado.getFoto(), 147, 134));
         jButtonEdit.setIcon(createIcon("img/edit.png", 30, 30));
     }
@@ -360,10 +417,9 @@ public class MisDatos extends javax.swing.JPanel {
     protected void copiarImagen() {
 
         try {
-
             Files.copy(new File(filepath).toPath(), new File("img/" + GUI.socioLogeado.getNif() + ".jpg").toPath(), StandardCopyOption.REPLACE_EXISTING);
-        } catch(NullPointerException ignore){
-            
+        } catch (NullPointerException ignore) {
+
         } catch (IOException ex) {
             ex.printStackTrace();
         }
